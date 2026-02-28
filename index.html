@@ -262,6 +262,52 @@
             icon.classList.toggle('fa-moon');
             icon.classList.toggle('fa-sun');
         }
+
+    // ১. রিডাইরেক্ট হয়ে আসার পর ডেটা রিসিভ করার লজিক আপডেট
+getRedirectResult(auth)
+    .then((result) => {
+        if (result) {
+            // সফলভাবে ডেটা পেলে সাথে সাথে কনফেটি দেখাবে
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+            console.log("ইউজার ডেটা রিসিভ হয়েছে:", result.user.displayName);
+        }
+    })
+    .catch((error) => {
+        console.error("Redirect Error:", error.message);
+    });
+
+// ২. অথেনটিকেশন স্টেট চেক (এই অংশটিই মূলত ভেতরে নিয়ে যায়)
+onAuthStateChanged(auth, (user) => {
+    const main = document.getElementById('main-content');
+    const authScreen = document.getElementById('auth-screen');
+    
+    if (user) {
+        // গুগল ইউজার অথবা ইমেইল ভেরিফাইড ইউজার হলে ভেতরে ঢুকবে
+        const isGoogleUser = user.providerData.some(p => p.providerId === 'google.com');
+        
+        if (isGoogleUser || user.emailVerified) {
+            authScreen.style.display = 'none';
+            main.style.display = 'flex';
+            
+            // নাম এবং ছবি আপডেট
+            document.getElementById('userNameDisplay').innerText = `স্বাগতম, ${user.displayName || 'ইউজার'}`;
+            if(user.photoURL) {
+                const img = document.getElementById('userPhoto');
+                img.src = user.photoURL;
+                img.style.display = 'block';
+            }
+        } else {
+            // ইমেইল দিয়ে করলে যদি ভেরিফাই না থাকে
+            authScreen.style.display = 'flex';
+            main.style.display = 'none';
+            notify("⚠️ দয়া করে ইমেইল ভেরিফাই করুন!", "err");
+        }
+    } else {
+        // লগআউট অবস্থায় থাকলে লগইন স্ক্রিন দেখাবে
+        authScreen.style.display = 'flex';
+        main.style.display = 'none';
+    }
+});
     </script>
 </body>
 </html>
