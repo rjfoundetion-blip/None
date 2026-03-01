@@ -17,7 +17,6 @@
             --header-bg: #0f1c2c;
             --accent-color: #00ffaa;
             --font-family: 'Hind Siliguri', 'Poppins', sans-serif;
-            --primary: #00ffcc;
         }
 
         .dark-theme {
@@ -29,38 +28,29 @@
 
         body { font-family: var(--font-family); background: var(--bg-color); color: var(--text-color); margin: 0; padding: 0; transition: all 0.4s ease; min-height: 100vh; display: flex; flex-direction: column; }
         
-        /* Auth Styles */
-        #auth-screen { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #0f1c2c; padding: 20px; box-sizing: border-box; }
+        /* Auth Screen */
+        #auth-screen { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #0f1c2c; padding: 20px; }
         .auth-container { background: white; padding: 30px; border-radius: 20px; width: 100%; max-width: 380px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); color: #333; text-align: center; }
+        .logo-img { width: 70px; height: 70px; border-radius: 50%; border: 2px solid var(--accent-color); margin-bottom: 10px; object-fit: cover; }
+        
         .auth-input { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ddd; box-sizing: border-box; font-size: 15px; margin-top: 10px; font-family: inherit; }
-        .pass-wrapper { position: relative; width: 100%; }
-        .toggle-icon { position: absolute; right: 12px; top: 22px; cursor: pointer; color: #666; font-size: 14px; }
-        
-        .auth-btn { width: 100%; padding: 13px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 15px; font-size: 16px; transition: 0.3s; font-family: inherit; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .auth-btn { width: 100%; padding: 13px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 15px; font-size: 16px; transition: 0.3s; display: flex; align-items: center; justify-content: center; gap: 10px; font-family: inherit; }
         .btn-primary { background: #0f1c2c; color: white; }
-        .btn-google { background: white; color: #555; border: 1px solid #ddd; margin-top: 10px; }
-        .btn-google:hover { background: #f8f8f8; }
+        .btn-google { background: white; color: #555; border: 1px solid #ddd; }
         
-        .divider { margin: 20px 0; border-bottom: 1px solid #eee; position: relative; }
-        .divider span { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: white; padding: 0 10px; color: #888; font-size: 12px; }
-
-        .btn-link { background: none; color: #1877F2; font-size: 14px; border: none; cursor: pointer; margin-top: 12px; text-decoration: underline; font-family: inherit; }
-        #login-form, #signup-form, #reset-form { display: none; }
-        
-        /* Dashboard Layout */
-        #main-content { display: none; flex-direction: column; min-height: 100vh; background: var(--bg-color); }
-
+        /* Main Content / Dashboard */
+        #main-content { display: none; flex-direction: column; min-height: 100vh; }
         header { background: var(--header-bg); padding: 30px 20px; color: white; position: relative; border-bottom: 4px solid var(--accent-color); text-align: center; }
         .top-controls { position: absolute; top: 15px; right: 15px; display: flex; gap: 10px; }
         .control-btn { background: rgba(255,255,255,0.1); border: 1px solid var(--accent-color); color: white; padding: 6px 12px; border-radius: 15px; cursor: pointer; font-size: 12px; }
+        .user-welcome { font-size: 14px; color: var(--accent-color); font-weight: bold; }
         
-        .logo-img { width: 70px; height: 70px; border-radius: 50%; border: 2px solid var(--accent-color); margin-bottom: 10px; object-fit: cover; }
-        .user-welcome { font-size: 14px; color: var(--accent-color); font-weight: bold; margin-bottom: 5px; }
-        header h1 { font-size: 22px; margin: 0; }
-
         .dashboard-main { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 30px 15px; text-align: center; }
         .profile-pic { width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--accent-color); margin-bottom: 15px; display: none; }
         footer { padding: 15px; background: var(--header-bg); color: #888; text-align: center; font-size: 13px; margin-top: auto; }
+        
+        .divider { margin: 20px 0; border-bottom: 1px solid #eee; position: relative; }
+        .divider span { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: white; padding: 0 10px; color: #888; font-size: 12px; }
     </style>
 </head>
 <body>
@@ -68,296 +58,35 @@
     <div id="auth-screen">
         <div class="auth-container">
             <img src="https://i.ibb.co.com/ycsrjKp6/20251128-004458.jpg" alt="Logo" class="logo-img">
+            <h2>লগইন করুন</h2>
+            <input type="email" id="login-email" class="auth-input" placeholder="ইমেইল এড্রেস">
+            <input type="password" id="login-pass" class="auth-input" placeholder="পাসওয়ার্ড">
+            <button class="auth-btn btn-primary" id="loginSubmit">লগইন</button>
             
-            <div id="login-form" style="display: block;">
-                <h2>লগইন করুন</h2>
-                <input type="email" id="login-email" class="auth-input" placeholder="ইমেইল এড্রেস">
-                <div class="pass-wrapper">
-                    <input type="password" id="login-pass" class="auth-input" placeholder="পাসওয়ার্ড">
-                    <i class="fas fa-eye toggle-icon" onclick="togglePassword('login-pass', this)"></i>
-                </div>
-                <button class="auth-btn btn-primary" id="loginSubmit">লগইন</button>
-
-                <div class="divider"><span>অথবা</span></div>
-
-                <button class="auth-btn btn-google" id="googleLogin">
-                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18">
-                    Google দিয়ে লগইন
-                </button>
-
-                <button class="btn-link" onclick="showForm('signup')">নতুন অ্যাকাউন্ট তৈরি করুন</button>
-                <button class="btn-link" onclick="showForm('reset')">পাসওয়ার্ড ভুলে গেছেন?</button>
-            </div>
-
-            <div id="signup-form">
-                <h2>নিবন্ধন করুন</h2>
-                <input type="text" id="signup-name" class="auth-input" placeholder="আপনার নাম">
-                <input type="email" id="signup-email" class="auth-input" placeholder="ইমেইল এড্রেস">
-                <div class="pass-wrapper">
-                    <input type="password" id="signup-pass" class="auth-input" placeholder="পাসওয়ার্ড">
-                    <i class="fas fa-eye toggle-icon" onclick="togglePassword('signup-pass', this)"></i>
-                </div>
-                <button class="auth-btn btn-primary" id="signupSubmit" style="background: #188038;">রেজিস্ট্রেশন করুন</button>
-                <button class="btn-link" onclick="showForm('login')">ইতিমধ্যেই অ্যাকাউন্ট আছে? লগইন করুন</button>
-            </div>
-
-            <div id="reset-form">
-                <h2>পাসওয়ার্ড রিসেট</h2>
-                <input type="email" id="reset-email" class="auth-input" placeholder="আপনার ইমেইলটি দিন">
-                <button class="auth-btn btn-primary" id="resetSubmit">লিঙ্ক পাঠান</button>
-                <button class="btn-link" onclick="showForm('login')">ফিরে যান</button>
-            </div>
+            <div class="divider"><span>অথবা</span></div>
             
-            <p id="auth-msg" style="font-size: 13px; margin-top: 10px; display: none; padding: 10px; border-radius: 8px; line-height: 1.4;"></p>
+            <button class="auth-btn btn-google" id="googleLogin">
+                <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18">
+                Google দিয়ে ডিরেক্ট লগইন
+            </button>
         </div>
     </div>
 
     <div id="main-content">
         <header>
             <div class="top-controls">
-                <button class="control-btn" onclick="toggleDarkMode()" id="themeIcon"><i class="fas fa-moon"></i></button>
-                <button class="control-btn" onclick="logoutUser()" style="border-color:#ff4d4d; color:#ff4d4d;">Logout</button>
+                <button class="control-btn" onclick="toggleDarkMode()">ডার্ক মোড</button>
+                <button class="control-btn" onclick="logoutUser()" style="color:#ff4d4d;">লগআউট</button>
             </div>
             <img src="https://i.ibb.co.com/ycsrjKp6/20251128-004458.jpg" alt="Logo" class="logo-img">
             <div class="user-welcome" id="userNameDisplay">প্রসেসিং...</div>
-            <h1 style="color:white;">রুপসা জনকল্যাণ ফাউন্ডেশন</h1>
+            <h1 style="color:white; margin:0;">রুপসা জনকল্যাণ ফাউন্ডেশন</h1>
         </header>
 
         <main class="dashboard-main">
             <img id="userPhoto" class="profile-pic" src="" alt="User">
-            <h3>সফলভাবে লগইন করেছেন!</h3>
-            <p>আপনার ড্যাশবোর্ড এখন প্রস্তুত।</p>
-        </main>
-
-        <footer>
-            <p>© 2026 All rights reserved with RJ Foundation</p>
-        </footer>
-    </div>
-
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
-        import { 
-            getAuth, 
-            createUserWithEmailAndPassword, 
-            signInWithEmailAndPassword, 
-            onAuthStateChanged, 
-            signOut, 
-            sendPasswordResetEmail, 
-            updateProfile, 
-            sendEmailVerification,
-            GoogleAuthProvider,
-            signInWithRedirect,
-            getRedirectResult
-        } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
-
-        // আপনার ফায়ারবেস কনফিগ
-        const firebaseConfig = {
-            apiKey: "AIzaSyDZ-VBMlJsPscpM4RoxZDiPFOHfSzlLRDw",
-            authDomain: "imran-bro-ddc88.firebaseapp.com",
-            projectId: "imran-bro-ddc88",
-            storageBucket: "imran-bro-ddc88.firebasestorage.app",
-            messagingSenderId: "1088716769061",
-            appId: "1:1088716769061:web:52874633d8d4d35927bccc"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const provider = new GoogleAuthProvider();
-
-        // গুগল সাইন-ইন বাটন ক্লিক ইভেন্ট
-        document.getElementById('googleLogin').addEventListener('click', () => {
-            signInWithRedirect(auth, provider);
-        });
-
-        // রিডাইরেক্টের পর রেজাল্ট হ্যান্ডেল করা
-        getRedirectResult(auth).then((result) => {
-            if (result) {
-                confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
-            }
-        }).catch((e) => {
-            console.error("গুগল লগইন এরর:", e.message);
-        });
-
-        // পাসওয়ার্ড টগল
-        window.togglePassword = (inputId, icon) => {
-            const input = document.getElementById(inputId);
-            input.type = input.type === 'password' ? 'text' : 'password';
-            icon.classList.toggle('fa-eye');
-            icon.classList.toggle('fa-eye-slash');
-        };
-
-        // ফর্ম শো/হাইড
-        window.showForm = (type) => {
-            document.getElementById('login-form').style.display = type === 'login' ? 'block' : 'none';
-            document.getElementById('signup-form').style.display = type === 'signup' ? 'block' : 'none';
-            document.getElementById('reset-form').style.display = type === 'reset' ? 'block' : 'none';
-            document.getElementById('auth-msg').style.display = 'none';
-        }
-
-        const notify = (msg, type) => {
-            const el = document.getElementById('auth-msg');
-            el.innerHTML = msg;
-            el.style.display = 'block';
-            el.style.background = type === 'err' ? '#ffebee' : '#e8f5e9';
-            el.style.color = type === 'err' ? '#c62828' : '#2e7d32';
-        }
-
-        // ইমেইল সাইন-আপ
-        document.getElementById('signupSubmit').addEventListener('click', () => {
-            const name = document.getElementById('signup-name').value;
-            const email = document.getElementById('signup-email').value;
-            const pass = document.getElementById('signup-pass').value;
-            if(!name) return notify("⚠️ নাম লিখুন", "err");
-            
-            createUserWithEmailAndPassword(auth, email, pass).then((res) => {
-                updateProfile(res.user, { displayName: name }).then(() => {
-                    sendEmailVerification(res.user).then(() => {
-                        notify("<b>সফল!</b> ইমেইলে ভেরিফিকেশন লিঙ্ক পাঠানো হয়েছে।", "success");
-                        signOut(auth);
-                        setTimeout(() => showForm('login'), 3000);
-                    });
-                });
-            }).catch(e => notify("⚠️ রেজিস্ট্রেশন ব্যর্থ হয়েছে!", "err"));
-        });
-
-        // ইমেইল লগইন
-        document.getElementById('loginSubmit').addEventListener('click', () => {
-            const email = document.getElementById('login-email').value;
-            const pass = document.getElementById('login-pass').value;
-            signInWithEmailAndPassword(auth, email, pass).catch(e => notify("⚠️ ইমেইল বা পাসওয়ার্ড ভুল!", "err"));
-        });
-
-        // পাসওয়ার্ড রিসেট
-        document.getElementById('resetSubmit').addEventListener('click', () => {
-            const email = document.getElementById('reset-email').value;
-            sendPasswordResetEmail(auth, email).then(() => notify("রিসেট লিঙ্ক পাঠানো হয়েছে!", "success")).catch(() => notify("ইউজার পাওয়া যায়নি!", "err"));
-        });
-
-        // লগআউট
-        window.logoutUser = () => signOut(auth);
-
-        // অথ স্টেট চেক
-        onAuthStateChanged(auth, (user) => {
-            const main = document.getElementById('main-content');
-            const authScreen = document.getElementById('auth-screen');
-            if (user && (user.emailVerified || user.providerData[0].providerId === 'google.com')) {
-                authScreen.style.display = 'none';
-                main.style.display = 'flex';
-                document.getElementById('userNameDisplay').innerText = `স্বাগতম, ${user.displayName || 'ইউজার'}`;
-                if(user.photoURL) {
-                    const img = document.getElementById('userPhoto');
-                    img.src = user.photoURL;
-<!DOCTYPE html>
-<html lang="bn">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rupsha Public Welfare Foundation</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    
-    <style>
-        :root {
-            --bg-color: #f0f2f5;
-            --text-color: #1c1e21;
-            --card-bg: #ffffff;
-            --header-bg: #0f1c2c;
-            --accent-color: #00ffaa;
-            --font-family: 'Hind Siliguri', 'Poppins', sans-serif;
-        }
-
-        .dark-theme {
-            --bg-color: #121212;
-            --text-color: #e4e6eb;
-            --card-bg: #242526;
-            --header-bg: #000000;
-        }
-
-        body { font-family: var(--font-family); background: var(--bg-color); color: var(--text-color); margin: 0; padding: 0; transition: all 0.4s ease; min-height: 100vh; display: flex; flex-direction: column; }
-        
-        #auth-screen { display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #0f1c2c; padding: 20px; box-sizing: border-box; }
-        .auth-container { background: white; padding: 30px; border-radius: 20px; width: 100%; max-width: 380px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); color: #333; text-align: center; }
-        .auth-input { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ddd; box-sizing: border-box; font-size: 15px; margin-top: 10px; font-family: inherit; }
-        .pass-wrapper { position: relative; width: 100%; }
-        .toggle-icon { position: absolute; right: 12px; top: 22px; cursor: pointer; color: #666; font-size: 14px; }
-        
-        .auth-btn { width: 100%; padding: 13px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 15px; font-size: 16px; transition: 0.3s; font-family: inherit; display: flex; align-items: center; justify-content: center; gap: 10px; }
-        .btn-primary { background: #0f1c2c; color: white; }
-        .btn-google { background: white; color: #555; border: 1px solid #ddd; margin-top: 10px; }
-        
-        .divider { margin: 20px 0; border-bottom: 1px solid #eee; position: relative; }
-        .divider span { position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: white; padding: 0 10px; color: #888; font-size: 12px; }
-
-        .btn-link { background: none; color: #1877F2; font-size: 14px; border: none; cursor: pointer; margin-top: 12px; text-decoration: underline; font-family: inherit; }
-        #login-form, #signup-form, #reset-form { display: none; }
-        
-        #main-content { display: none; flex-direction: column; min-height: 100vh; background: var(--bg-color); }
-        header { background: var(--header-bg); padding: 30px 20px; color: white; position: relative; border-bottom: 4px solid var(--accent-color); text-align: center; }
-        .top-controls { position: absolute; top: 15px; right: 15px; display: flex; gap: 10px; }
-        .control-btn { background: rgba(255,255,255,0.1); border: 1px solid var(--accent-color); color: white; padding: 6px 12px; border-radius: 15px; cursor: pointer; font-size: 12px; }
-        .logo-img { width: 70px; height: 70px; border-radius: 50%; border: 2px solid var(--accent-color); margin-bottom: 10px; object-fit: cover; }
-        .user-welcome { font-size: 14px; color: var(--accent-color); font-weight: bold; margin-bottom: 5px; }
-        header h1 { font-size: 22px; margin: 0; }
-        .dashboard-main { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 30px 15px; text-align: center; }
-        .profile-pic { width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--accent-color); margin-bottom: 15px; display: none; }
-        footer { padding: 15px; background: var(--header-bg); color: #888; text-align: center; font-size: 13px; margin-top: auto; }
-    </style>
-</head>
-<body>
-
-    <div id="auth-screen">
-        <div class="auth-container">
-            <img src="https://i.ibb.co.com/ycsrjKp6/20251128-004458.jpg" alt="Logo" class="logo-img">
-            
-            <div id="login-form" style="display: block;">
-                <h2>লগইন করুন</h2>
-                <input type="email" id="login-email" class="auth-input" placeholder="ইমেইল এড্রেস">
-                <div class="pass-wrapper">
-                    <input type="password" id="login-pass" class="auth-input" placeholder="পাসওয়ার্ড">
-                    <i class="fas fa-eye toggle-icon" onclick="togglePassword('login-pass', this)"></i>
-                </div>
-                <button class="auth-btn btn-primary" id="loginSubmit">লগইন</button>
-                <div class="divider"><span>অথবা</span></div>
-                <button class="auth-btn btn-google" id="googleLogin">
-                    <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" width="18">
-                    Google দিয়ে লগইন
-                </button>
-                <button class="btn-link" onclick="showForm('signup')">নতুন অ্যাকাউন্ট তৈরি করুন</button>
-            </div>
-
-            <div id="signup-form">
-                <h2>নিবন্ধন করুন</h2>
-                <input type="text" id="signup-name" class="auth-input" placeholder="আপনার নাম">
-                <input type="email" id="signup-email" class="auth-input" placeholder="ইমেইল এড্রেস">
-                <div class="pass-wrapper">
-                    <input type="password" id="signup-pass" class="auth-input" placeholder="পাসওয়ার্ড">
-                    <i class="fas fa-eye toggle-icon" onclick="togglePassword('signup-pass', this)"></i>
-                </div>
-                <button class="auth-btn btn-primary" id="signupSubmit" style="background: #188038;">রেজিস্ট্রেশন করুন</button>
-                <button class="btn-link" onclick="showForm('login')">ফিরে যান</button>
-            </div>
-
-            <p id="auth-msg" style="font-size: 13px; margin-top: 10px; display: none; padding: 10px; border-radius: 8px;"></p>
-        </div>
-    </div>
-
-    <div id="main-content">
-        <header>
-            <div class="top-controls">
-                <button class="control-btn" onclick="toggleDarkMode()" id="themeIcon"><i class="fas fa-moon"></i></button>
-                <button class="control-btn" onclick="logoutUser()" style="border-color:#ff4d4d; color:#ff4d4d;">Logout</button>
-            </div>
-            <img src="https://i.ibb.co.com/ycsrjKp6/20251128-004458.jpg" alt="Logo" class="logo-img">
-            <div class="user-welcome" id="userNameDisplay">প্রসেসিং...</div>
-            <h1 style="color:white;">রুপসা জনকল্যাণ ফাউন্ডেশন</h1>
-        </header>
-
-        <main class="dashboard-main">
-            <img id="userPhoto" class="profile-pic" src="" alt="User">
-            <h3>লগইন সফল হয়েছে!</h3>
-            <p>রুপসা জনকল্যাণ ফাউন্ডেশনে আপনাকে স্বাগতম।</p>
+            <h3>আপনি সফলভাবে ড্যাশবোর্ডে প্রবেশ করেছেন!</h3>
+            <p>আপনার প্রোফাইল এখন সক্রিয়।</p>
         </main>
 
         <footer><p>© 2026 RJ Foundation</p></footer>
@@ -366,9 +95,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-app.js";
         import { 
-            getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, 
-            onAuthStateChanged, signOut, GoogleAuthProvider, 
-            signInWithRedirect, getRedirectResult, setPersistence, browserLocalPersistence 
+            getAuth, onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup 
         } from "https://www.gstatic.com/firebasejs/11.1.0/firebase-auth.js";
 
         const firebaseConfig = {
@@ -384,64 +111,46 @@
         const auth = getAuth(app);
         const provider = new GoogleAuthProvider();
 
-        // ১. পেজ লোড হওয়ার সাথে সাথে রিডাইরেক্ট রেজাল্ট চেক করা
-        getRedirectResult(auth).then((result) => {
-            if (result && result.user) {
-                confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
-            }
-        }).catch(e => console.error("Redirect Error:", e));
-
-        // ২. গুগল লগইন বাটন ক্লিক
+        // গুগল লগইন ফাংশন (ডিরেক্ট পপ-আপ)
         document.getElementById('googleLogin').addEventListener('click', () => {
-            // Persistence সেট করা যাতে রিফ্রেশ করলে লগইন না যায়
-            setPersistence(auth, browserLocalPersistence).then(() => {
-                return signInWithRedirect(auth, provider);
-            });
+            signInWithPopup(auth, provider)
+                .then((result) => {
+                    // লগইন হওয়া মাত্রই ড্যাশবোর্ড দেখাবে (onAuthStateChanged এর মাধ্যমে)
+                    confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+                })
+                .catch((error) => {
+                    alert("গুগল লগইন করতে সমস্যা হয়েছে: " + error.message);
+                });
         });
 
-        // ৩. অথেনটিকেশন স্টেট হ্যান্ডলার (সবচেয়ে গুরুত্বপূর্ণ)
+        // অথেনটিকেশন স্টেট চেক (পেজ লোড বা লগইন হওয়ার সাথে সাথে কাজ করবে)
         onAuthStateChanged(auth, (user) => {
             const authScreen = document.getElementById('auth-screen');
             const mainContent = document.getElementById('main-content');
 
             if (user) {
-                // ইউজার পাওয়া গেলে ড্যাশবোর্ড দেখাও
+                // ইউজার থাকলে লগইন স্ক্রিন হাইড এবং ড্যাশবোর্ড শো
                 authScreen.style.display = 'none';
                 mainContent.style.display = 'flex';
-                document.getElementById('userNameDisplay').innerText = `স্বাগতম, ${user.displayName || 'ইউজার'}`;
+                
+                document.getElementById('userNameDisplay').innerText = `স্বাগতম, ${user.displayName}`;
                 if(user.photoURL) {
                     const img = document.getElementById('userPhoto');
                     img.src = user.photoURL;
                     img.style.display = 'block';
                 }
             } else {
-                // ইউজার না থাকলে লগইন স্ক্রিন দেখাও
+                // ইউজার না থাকলে লগইন স্ক্রিন শো এবং ড্যাশবোর্ড হাইড
                 authScreen.style.display = 'flex';
                 mainContent.style.display = 'none';
             }
         });
 
-        // ইমেইল লগইন
-        document.getElementById('loginSubmit').addEventListener('click', () => {
-            const email = document.getElementById('login-email').value;
-            const pass = document.getElementById('login-pass').value;
-            signInWithEmailAndPassword(auth, email, pass).catch(e => alert("ভুল ইমেইল বা পাসওয়ার্ড"));
-        });
-
-        // লগআউট
-        window.logoutUser = () => signOut(auth);
-
-        // অন্যান্য UI ফাংশন
-        window.showForm = (type) => {
-            document.getElementById('login-form').style.display = type === 'login' ? 'block' : 'none';
-            document.getElementById('signup-form').style.display = type === 'signup' ? 'block' : 'none';
-        };
-
-        window.togglePassword = (id, icon) => {
-            const input = document.getElementById(id);
-            input.type = input.type === 'password' ? 'text' : 'password';
-            icon.classList.toggle('fa-eye');
-            icon.classList.toggle('fa-eye-slash');
+        // লগআউট ফাংশন
+        window.logoutUser = () => {
+            signOut(auth).then(() => {
+                location.reload(); // লগআউট হলে পেজ রিফ্রেশ হবে
+            });
         };
 
         window.toggleDarkMode = () => {
